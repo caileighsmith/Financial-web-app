@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <!-- Navbar-->
+    <nav class="shadow-sm p-3 mb-5 rounded navbar sticky-top navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">App</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+    </nav>
+    
+
+    <!-- Checking if there is no error. If there is, the following WONT be shown.-->
+    {% if error != True%}
+
+    <div id="content">
+    
+
+        <!-- Welcome div-->
+        <div id="welcome" style="text-align: center; padding: 50px;">
+            <h1 class="display-3">Welcome</h1>
+            <p class="lead"> Log in with your accout details.</p>
+        </div>
+        
+        <!-- Login form div from bs-->
+        <div id="login_form" style="padding: 50px;">
+            <form action="/login" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="loginUsername" aria-describedby="usernameHelp" name="username" required>
+                </div>
+
+                <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="loginPassword" name="password" required>
+                </div>
+                <br>
+                {%if login_error%}
+                <div class="alert alert-danger" role="alert">
+                    Login information incorrect.
+                </div>
+                {%endif%}
+                <br>
+                <button type="submit" class="btn btn-dark">Login</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+    {% if error == True%}
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div>
+          Oops. Something went wrong!
+          <br><br>
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>
