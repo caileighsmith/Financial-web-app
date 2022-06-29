@@ -1,4 +1,3 @@
-
 from crypt import methods
 from enum import unique
 from re import L
@@ -61,8 +60,8 @@ class Articles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
     title = db.Column(db.String, nullable=False)
-    article = db.Column(db.String, nullable=False)
-    
+    article = db.Column(db.Text, nullable=False)
+
     author = db.Column(db.Integer, nullable=False)
 
     
@@ -343,7 +342,7 @@ def articles():
     
     if 'username' in session:
         articles = Articles.query.all()
-        return render_template('articles.html', articles=articles)
+        return render_template('articles.html', articles=articles, username=session['username'])
     
 @app.route('/postArticle', methods=['POST'])
 def postArticle():
@@ -355,24 +354,25 @@ def postArticle():
             newPost = Articles(title=title, author=username, article=article)
             db.session.add(newPost)
             db.session.commit()
-            return 'success!!'
+            posted = True
+            return redirect(url_for("articles", posted=posted))
     
     return redirect(url_for("home"))
 
 @app.route('/users/<user>')
 def users(user):
     
-    query = Articles.query.filter_by(author=str(user)).all()
-    
-    
-    '''
-        FIGURE THIS SHIT OUT CAI
+    if 'username' in session:
+        query = Articles.query.filter_by(author=str(user)).all()
         
-    '''
-   
-    
-    return query.article
-    
+        
+        '''
+            FIGURE THIS SHIT OUT CAI
+            
+        '''
+
+        return render_template('user.html', articles=query, target_user = user, username=session['username'])
+        
     '''allArticles = Articles.query.all()
     for article in allArticles:
         if article.author == user:

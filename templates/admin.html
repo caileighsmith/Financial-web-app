@@ -36,6 +36,9 @@
                 <a class="nav-link" href="/stocks">Stock graph</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="/articles">User articles</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="/profile">Profile</a>
               </li>
               <li class="nav-item">
@@ -89,6 +92,7 @@
                         <p> <b>Password (encrypted): </b>{{user.password}}</p>
                         <p> <b>Account created on: </b>{{user.date_created}}</p>
                         <p> <b>Last active: </b>{{user.last_active}}</p>
+                        <p> <a href='/users/{{user.username}}'> Link to profile</a></p>
                         <br>
                         <hr>
                     </div>
